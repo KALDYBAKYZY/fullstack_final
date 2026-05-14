@@ -11,7 +11,8 @@ function setupWebSocket(server) {
   const wss = new WebSocketServer({ server, path: '/ws' });
 
   wss.on('connection', async (ws, req) => {
-    const url = new URL(req.url, 'http://localhost');
+
+    const url = new URL(req.url, `http://${req.headers.host}`);
     const token = url.searchParams.get('token');
 
     if (!token) {
